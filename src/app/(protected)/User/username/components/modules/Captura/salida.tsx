@@ -58,7 +58,7 @@ export default function Salida() {
         </div>
         <div className="text-center mt-3">
           <h1 className="text-3xl font-bold font-montserrat ">
-            Sistema de Acceso Institucional
+            Sistema de Registro Institucional
           </h1>
           <p className="font-bold  text-2xl text-gray-900 mt-2">
             Registro de Salida

@@ -1,5 +1,4 @@
 import { solicitudInicial } from "./solicitudInicial";
-import { RecoildStart } from "./RecoildStart";
 import { guardarUsuario } from "../db/guardarUsuario";
 import { TelegramUpdate } from "./types";
 
@@ -12,15 +11,6 @@ export async function manejarMensajeTelegram(update: TelegramUpdate) {
 
   // 🟩 Si el usuario manda /start
   if (text === "/start") {
-    if (!RecoildStart(chatId)) {
-      await solicitudInicial({
-        chat_id: chatId,
-        text: "⏳ Espera 30 minutos antes de volver a usar /start.",
-        removeKeyboard: true,
-      });
-      return;
-    }
-
     await solicitudInicial({
       chat_id: chatId,
       text: "¡Bienvenido!",
@@ -31,15 +21,6 @@ export async function manejarMensajeTelegram(update: TelegramUpdate) {
 
   // 🟩 Si el usuario comparte su número
   if (message.contact) {
-    if (!RecoildStart(chatId)) {
-      await solicitudInicial({
-        chat_id: chatId,
-        text: "⚠️ Ya has compartido tu número recientemente. Intenta más tarde.",
-        removeKeyboard: true,
-      });
-      return;
-    }
-
     const {
       phone_number,
       first_name,

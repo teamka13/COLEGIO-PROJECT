@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="bg-gray-900 text-white shadow-lg font-montserrat">
+    <header className="bg-gray-950 text-white shadow-lg font-montserrat">
       <div
         className="max-w-7xl mx-auto px-3 py-2
       "

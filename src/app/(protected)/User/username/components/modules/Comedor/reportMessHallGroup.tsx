@@ -121,7 +121,7 @@ export function ReporteComedorDiario() {
                     .map(([key, value]) => (
                       <td
                         key={key}
-                        className="px-6 py-4 whitespace-nowrap text-sm font-medium hover:text-black hover:font-bold text-gray-500"
+                        className="px-6 py-4 text-center whitespace-nowrap text-sm font-semibold font-montserrat hover:text-black hover:font-bold text-gray-500"
                       >
                         {value || <span className="text-gray-400">-</span>}
                       </td>

@@ -13,7 +13,7 @@ const config = {
     connectionTimeout: 30000,
     requestTimeout: 30000,
   },
-};
+}; //{SQLachure02/07/23}
 
 let pool: sql.ConnectionPool | null = null;
 

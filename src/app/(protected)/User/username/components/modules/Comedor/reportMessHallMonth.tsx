@@ -112,29 +112,34 @@ export function ReporteComedorMensual() {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-300">
               <tr>
-                {orderedKeys.map((key) => (
-                  <th
-                    key={key}
-                    className="px-6 py-3 text-left text-sm font-semibold text-black uppercase tracking-wider w-48"
-                  >
-                    {key}
-                  </th>
-                ))}
+                {Object.keys(currentData[0])
+                  .filter((key) => key !== "IdAlumno")
+                  .map((key) => (
+                    <th
+                      key={key}
+                      className={`px-6 py-3  text-sm font-semibold font-montserrat text-black uppercase tracking-wider w-48'
+                        ${key === "Nombre" ? "text-left" : "text-center"}`}
+                    >
+                      {key}
+                    </th>
+                  ))}
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {currentData.map((row, index) => (
                 <tr key={index} className="hover:bg-gray-50">
-                  {orderedKeys.map((key) => (
-                    <td
-                      key={key}
-                      className="px-6 py-4 whitespace-nowrap text-sm font-medium hover:text-black hover:font-bold text-gray-500"
-                    >
-                      {row[key] === 100
-                        ? "N/A" // Fin de semana
-                        : row[key] ?? <span className="text-gray-400">-</span>}
-                    </td>
-                  ))}
+                  {Object.entries(row)
+                    .filter(([key]) => key !== "IdAlumno")
+                    .map(([key, value]) => (
+                      <td
+                        key={key}
+                        className={`px-6 py-4 whitespace-nowrap text-sm font-montserrat hover:text-black hover:font-bold text-gray-500 ${
+                          key === "Nombre" ? "text-left" : "text-center"
+                        }`}
+                      >
+                        {value || <span className="text-gray-400">-</span>}
+                      </td>
+                    ))}
                 </tr>
               ))}
             </tbody>
