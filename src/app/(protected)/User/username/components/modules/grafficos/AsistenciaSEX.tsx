@@ -24,7 +24,7 @@ type EChartsOption = echarts.ComposeOption<
   BarSeriesOption | GridComponentOption
 >;
 
-const MyChart = () => {
+const AsistenciaSexo = () => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,9 +33,9 @@ const MyChart = () => {
 
     const option: EChartsOption = {
       title: {
-        text: "Rendimiento Semanal ",
+        text: "Asistencia Semanal en Bachillerato",
+        subtext: "Datos totales de asistencias en Bachillerato ",
 
-        subtext: "Datos totales en Bachillerato",
         subtextStyle: {
           color: "#ccc",
           fontSize: 18,
@@ -69,15 +69,15 @@ const MyChart = () => {
           const total = hombres + mujeres;
           return `
       <strong>${params[0].axisValue}</strong><br/>
-      🟩 Asistencias: ${hombres}<br/>
-      🟥 Faltas: ${mujeres}<br/>
+      👨 Hombres: ${hombres}<br/>
+      👩 Mujeres: ${mujeres}<br/>
       📊 Total: <strong>${total}</strong>
     `;
         },
       },
       legend: {
-        data: ["Asistencias", "Faltas"],
-        top: "15%",
+        data: ["Hombres", "Mujeres"],
+        top: "18%",
         textStyle: { color: "#ccc", fontSize: 20 },
       },
 
@@ -95,35 +95,35 @@ const MyChart = () => {
       },
       series: [
         {
-          name: "Asistencias",
+          name: "Hombres",
           type: "bar",
-          data: [661, 634, 477, 619, 652],
+          data: [400, 384, 291, 371, 352],
           itemStyle: {
-            color: "#4ade80", // verde
+            color: "#3b82f6",
             borderRadius: [6, 6, 0, 0],
           },
           emphasis: {
             itemStyle: {
               shadowBlur: 20,
-              shadowColor: "rgba(0, 255, 100, 0.6)",
+              shadowColor: "rgba(59, 130, 246, 0.6)",
               shadowOffsetX: 10,
             },
           },
           barWidth: "35%",
         },
         {
-          name: "Faltas",
+          name: "Mujeres",
           type: "bar",
-          data: [57, 84, 241, 99, 66, 0, 0],
+          data: [261, 250, 186, 248, 300],
           itemStyle: {
-            color: "#f87171", // rojo suave
+            color: "#ec4899", // rojo suave
             borderRadius: [6, 6, 0, 0],
           },
 
           emphasis: {
             itemStyle: {
               shadowBlur: 20,
-              shadowColor: "rgba(255, 0, 0, 0.5)",
+              shadowColor: "rgba(236, 72, 153, 0.6)",
               shadowOffsetX: 10,
             },
           },
@@ -161,6 +161,7 @@ const MyChart = () => {
       style={{
         width: 980,
         height: 520,
+        margin: "0 auto",
         borderRadius: "20px",
         overflow: "hidden", // importante para que el borde redondo se respete
         backgroundColor: "#1e293b", // opcional para destacar el borde
@@ -169,4 +170,4 @@ const MyChart = () => {
   );
 };
 
-export default MyChart;
+export default AsistenciaSexo;

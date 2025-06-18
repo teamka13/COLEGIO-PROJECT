@@ -135,7 +135,18 @@ const RadarAsistencias = () => {
     };
   }, []);
 
-  return <div ref={chartRef} style={{ width: "100%", height: "450px" }} />;
+  return (
+    <div
+      ref={chartRef}
+      style={{
+        width: 980,
+        height: "450px",
+        borderRadius: "20px",
+        overflow: "hidden", // importante para que el borde redondo se respete
+        backgroundColor: "#1e293b", // opcional para destacar el borde
+      }}
+    />
+  );
 };
 
 export default RadarAsistencias;

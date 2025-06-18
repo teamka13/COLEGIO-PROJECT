@@ -1,61 +1,43 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import * as echarts from "echarts/core";
-import { BarChart, BarSeriesOption } from "echarts/charts";
-import {
-  GridComponent,
-  GridComponentOption,
-  TitleComponent,
-  LegendComponent,
-  TooltipComponent,
-} from "echarts/components";
-import { SVGRenderer } from "echarts/renderers";
+import * as echarts from "echarts";
 
-echarts.use([
-  BarChart,
-  GridComponent,
-  TitleComponent,
-  LegendComponent,
-  TooltipComponent,
-  SVGRenderer,
-]);
-
-type EChartsOption = echarts.ComposeOption<
-  BarSeriesOption | GridComponentOption
->;
-
-const MyChart = () => {
+const MensualFaltasSEX = () => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!chartRef.current) return;
-    const chart = echarts.init(chartRef.current, "dark", { renderer: "svg" });
 
-    const option: EChartsOption = {
+    const chartInstance = echarts.init(chartRef.current, "dark");
+
+    const semanas = ["Semana 1", "Semana 2", "Semana 3", "Semana 4"];
+    const faltasHombres = [145, 167, 231, 132];
+    const faltasMujeres = [128, 134, 214, 146];
+
+    const option: echarts.EChartsOption = {
       title: {
-        text: "Rendimiento Semanal ",
+        text: "Faltistas Mensuales de Junio",
+        subtext: "Distribución semanal de hombres y mujeres",
 
-        subtext: "Datos totales en Bachillerato",
-        subtextStyle: {
-          color: "#ccc",
-          fontSize: 18,
-          fontFamily: "Montserrat",
-        },
         left: "center",
         textStyle: {
           color: "#38bdf8",
+          fontSize: 30,
           fontWeight: "bold",
-          fontSize: 35,
+        },
+        subtextStyle: {
+          color: "#ccc",
+          fontSize: 16,
           fontFamily: "Montserrat",
         },
       },
       toolbox: {
         show: true,
         feature: {
-          saveAsImage: { show: true },
           dataView: { show: true, readOnly: false },
           magicType: { show: true, type: ["line", "bar"] },
           restore: { show: true },
+          saveAsImage: { show: true },
         },
       },
       tooltip: {
@@ -69,65 +51,56 @@ const MyChart = () => {
           const total = hombres + mujeres;
           return `
       <strong>${params[0].axisValue}</strong><br/>
-      🟩 Asistencias: ${hombres}<br/>
-      🟥 Faltas: ${mujeres}<br/>
+      👨 Hombres: ${hombres}<br/>
+      👩 Mujeres: ${mujeres}<br/>
       📊 Total: <strong>${total}</strong>
     `;
         },
       },
       legend: {
-        data: ["Asistencias", "Faltas"],
         top: "15%",
-        textStyle: { color: "#ccc", fontSize: 20 },
+        data: ["Hombres", "Mujeres"],
+        textStyle: { color: "#ccc", fontSize: 18 },
       },
-
       xAxis: {
         type: "category",
-        data: ["Lun", "Mar", "Mié", "Jue", "Vie"],
-        axisLine: { lineStyle: { color: "#1e1e2f" } },
-        axisLabel: { color: "#ccc", fontWeight: "bold", fontSize: 20 },
+        data: semanas,
+        axisLabel: { color: "#ccc", fontWeight: "bold", fontSize: 18 },
+        axisLine: { lineStyle: { color: "#555" } },
       },
       yAxis: {
         type: "value",
-        axisLine: { show: false },
+        axisLabel: { color: "#ccc", fontWeight: "bold", fontSize: 16 },
         splitLine: { lineStyle: { color: "#333" } },
-        axisLabel: { color: "#ccc", fontWeight: "bold", fontSize: 17 },
       },
       series: [
         {
-          name: "Asistencias",
+          name: "Asistencia Hombres",
           type: "bar",
-          data: [661, 634, 477, 619, 652],
-          itemStyle: {
-            color: "#4ade80", // verde
-            borderRadius: [6, 6, 0, 0],
-          },
+          data: faltasHombres,
+          itemStyle: { color: "#3b82f6", borderRadius: [6, 6, 0, 0] },
           emphasis: {
             itemStyle: {
               shadowBlur: 20,
-              shadowColor: "rgba(0, 255, 100, 0.6)",
+              shadowColor: "rgba(59, 130, 246, 0.6)",
               shadowOffsetX: 10,
             },
           },
-          barWidth: "35%",
+          barWidth: "35%", // azul
         },
         {
-          name: "Faltas",
+          name: "Asistencia Mujeres",
           type: "bar",
-          data: [57, 84, 241, 99, 66, 0, 0],
-          itemStyle: {
-            color: "#f87171", // rojo suave
-            borderRadius: [6, 6, 0, 0],
-          },
-
+          data: faltasMujeres,
+          itemStyle: { color: "#ec4899", borderRadius: [6, 6, 0, 0] },
           emphasis: {
             itemStyle: {
               shadowBlur: 20,
-              shadowColor: "rgba(255, 0, 0, 0.5)",
+              shadowColor: "rgba(236, 72, 153, 0.6)",
               shadowOffsetX: 10,
             },
           },
-          barWidth: "35%",
+          barWidth: "35%", // morado
         },
       ],
       backgroundColor: "#1e1e2f",
@@ -144,14 +117,14 @@ const MyChart = () => {
       animationEasing: "cubicOut",
     };
 
-    chart.setOption(option);
+    chartInstance.setOption(option);
 
-    const resizeObserver = new ResizeObserver(() => chart.resize());
+    const resizeObserver = new ResizeObserver(() => chartInstance.resize());
     resizeObserver.observe(chartRef.current);
 
     return () => {
       resizeObserver.disconnect();
-      chart.dispose();
+      chartInstance.dispose();
     };
   }, []);
 
@@ -161,6 +134,7 @@ const MyChart = () => {
       style={{
         width: 980,
         height: 520,
+        margin: "0 auto",
         borderRadius: "20px",
         overflow: "hidden", // importante para que el borde redondo se respete
         backgroundColor: "#1e293b", // opcional para destacar el borde
@@ -169,4 +143,4 @@ const MyChart = () => {
   );
 };
 
-export default MyChart;
+export default MensualFaltasSEX;
